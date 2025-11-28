@@ -42,31 +42,39 @@ Original App Design Project - README Template
 
 **Required Must-have Stories**
 
-* User can launch the app to the game screen that displays a historical blurb from an "on this day" API
-* Users are instructed to enter the year they believe this day in history happened
-* Users are given up to six chances to get the year right, with color-coded feedback based on their response to see how close they are
-* When the user gets the right answer, they are congratulated and offered to play again
+* [ ] User can log in/sign up for account
+* [X] User can launch the app to the game screen that displays a historical blurb from an "on this day" API
+* [X] Users are instructed to enter the year they believe this day in history happened
+* [X] Users are given up to six chances to get the year right, with color-coded feedback based on their response to see how close they are
+* [ } ]When the user gets the right answer, they are congratulated and offered to play again
 
 **Optional Nice-to-have Stories**
 
-* User's scores are collected and stored in a database for that day so everyone can see how people are performing on average
-* Users can see their performance compared with global averages
+* [ ] User's scores are collected and stored in a database for that day so everyone can see how people are performing on average
+* [ ] Users can see their performance compared with global averages
 
 ### 2. Screen Archetypes
 
+- [ ] Launch Splash Screen
+* Required User Feature: 
+* [ ] Have launch logo image and name and Z num
+- [ ] Login/Signup
+* Required User Feature: 
+* [ ] Ability for user to login / signup for accounts
 - [ ] Game Screen
 * Required User Feature: 
-* Shows historal blurb for the day and gives instructions
-* Has tile grid to show guesses
-* Has easy way to enter four digit year
-* Has color coded feedback for user guesses
-* Has option to view stats screen at any time
-* User can refresh to replay a different game any time
-* On game complete user can tap a button to copy a block of text that shows their performance in the game
+* [X] Shows historal blurb for the day and gives instructions
+* [X] Has tile grid to show guesses
+* [X] Has easy way to enter four digit year
+* [X] Has color coded feedback for user guesses
+* [X] Has option to view stats screen at any time
+* [ ] User can refresh to replay a different game any time
+* [ ] On game complete user can tap a button to copy a block of text that shows their performance in the game
 - [ ] Stats Screen
-* Shows global average statistics for game
-* Shows current user statistics for comparison
-* Statistics include things like win rate, guess number, etc.
+* Required User Feature: 
+* [ ] Shows global average statistics for game
+* [ ] Shows current user statistics for comparison
+* [ ] Statistics include things like win rate, guess number, etc.
 
 ### 3. Navigation
 
