@@ -13,12 +13,14 @@
 		48628B592EDA69AF00543927 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 48628B582EDA69AF00543927 /* FirebaseFirestore */; };
 		48628B5B2EDA6A5200543927 /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 48628B5A2EDA6A5200543927 /* readme.md */; };
 		48628B5D2EDA6A5D00543927 /* brainstorming.md in Resources */ = {isa = PBXBuildFile; fileRef = 48628B5C2EDA6A5D00543927 /* brainstorming.md */; };
+		48628B5F2EDA6AF300543927 /* final_progress_demo_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48628B5E2EDA6AF300543927 /* final_progress_demo_1.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		48628B4D2EDA68A200543927 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		48628B5A2EDA6A5200543927 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 		48628B5C2EDA6A5D00543927 /* brainstorming.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = brainstorming.md; sourceTree = "<group>"; };
+		48628B5E2EDA6AF300543927 /* final_progress_demo_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = final_progress_demo_1.gif; sourceTree = "<group>"; };
 		48B1E3AF2ED2A4BA002F9824 /* onthisday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = onthisday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -47,6 +49,7 @@
 		48B1E3A62ED2A4BA002F9824 = {
 			isa = PBXGroup;
 			children = (
+				48628B5E2EDA6AF300543927 /* final_progress_demo_1.gif */,
 				48628B5C2EDA6A5D00543927 /* brainstorming.md */,
 				48628B5A2EDA6A5200543927 /* readme.md */,
 				48B1E3B12ED2A4BA002F9824 /* onthisday */,
@@ -134,6 +137,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48628B5B2EDA6A5200543927 /* readme.md in Resources */,
+				48628B5F2EDA6AF300543927 /* final_progress_demo_1.gif in Resources */,
 				48628B5D2EDA6A5D00543927 /* brainstorming.md in Resources */,
 				48628B4E2EDA68A200543927 /* GoogleService-Info.plist in Resources */,
 			);

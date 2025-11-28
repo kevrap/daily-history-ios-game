@@ -96,7 +96,10 @@ Original App Design Project - README Template
 
 ![image2](https://hackmd.io/_uploads/BkcOJWe-Wx.png)
 
+## Demos
 
+Progress Demo 1
+<img src="final_progress_demo_1.gif" alt="progress demo 1" width="50%" />
 
 ## Schema 
 
