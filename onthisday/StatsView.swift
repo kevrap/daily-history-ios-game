@@ -12,36 +12,40 @@ struct StatsView: View {
     @ObservedObject var viewModel: GameViewModel
 
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 16) {
-                if let games = viewModel.dailyGamesPlayed,
-                   let avg = viewModel.dailyAverageGuesses {
-                    Text("Today’s global stats")
-                        .font(.title2.weight(.semibold))
+        VStack(spacing: 24) {
+            Text("Today’s Global Stats")
+                .font(.title2.weight(.semibold))
 
-                    Text("Games played: \(games)")
-                    Text("Average guesses: \(avg, specifier: "%.2f")")
-
-                    if let winRate = viewModel.dailyWinRate {
-                        Text("Win rate: \(Int(winRate * 100))%")
-                    }
-                } else {
-                    Text("No stats yet for today.")
-                        .foregroundColor(.secondary)
-                }
-
-                Spacer()
+            GroupBox {
+                statRow(title: "Games Played", value: viewModel.dailyGamesPlayed.map { "\($0)" } ?? "—")
+                Divider()
+                statRow(title: "Average Guesses", value: viewModel.dailyAverageGuesses.map { String(format: "%.2f", $0) } ?? "—")
+                Divider()
+                statRow(title: "Win Rate", value: viewModel.dailyWinRate.map { String(format: "%.0f%%", $0 * 100) } ?? "—")
             }
-            .padding()
-            .navigationTitle("Stats")
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Close") {
-                        // sheet is dismissed by parent binding
-                        // (no direct dismissal needed here)
-                    }
-                }
+
+            Text("Your Stats (Today)")
+                .font(.title3.weight(.semibold))
+
+            GroupBox {
+                statRow(title: "Games Played", value: viewModel.userDailyGamesPlayed.map { "\($0)" } ?? "—")
+                Divider()
+                statRow(title: "Average Guesses", value: viewModel.userDailyAverageGuesses.map { String(format: "%.2f", $0) } ?? "—")
+                Divider()
+                statRow(title: "Win Rate", value: viewModel.userDailyWinRate.map { String(format: "%.0f%%", $0 * 100) } ?? "—")
             }
+
+            Spacer()
+        }
+        .padding()
+        .navigationTitle("Stats")
+    }
+
+    private func statRow(title: String, value: String) -> some View {
+        HStack {
+            Text(title)
+            Spacer()
+            Text(value)
         }
     }
 }

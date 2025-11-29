@@ -10,45 +10,42 @@ import SwiftUI
 
 struct GameView: View {
 
-    @StateObject private var viewModel = GameViewModel()
-    @State private var showingStats = false
+    @ObservedObject var viewModel: GameViewModel
 
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 16) {
-                header
-                descriptionSection
-                boardSection
-                inputSection
-                statusSection
-                shareSection
-                Spacer()
-                statsPreviewButton
+        VStack(spacing: 16) {
+            header
+            descriptionSection
+            boardSection
+            numberPadSection
+            statusSection
+            shareSection
+            Spacer()
+        }
+        .padding()
+        .toolbar {
+            // Center title as logo
+            ToolbarItem(placement: .principal) {
+                Image("OnThisDayTitle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 200)    // tweak size as you like
             }
-            .padding()
-            .navigationTitle("On This Day")
-            Text("Kevin Rapkin, Z15183142")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        showingStats = true
-                    } label: {
-                        Image(systemName: "chart.bar.doc.horizontal")
-                    }
-                }
 
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        Task { await viewModel.loadTodayEvent() }
-                    } label: {
-                        Image(systemName: "arrow.clockwise")
-                    }
+            // Refresh button on the left
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    Task { await viewModel.loadTodayEvent() }
+                } label: {
+                    Image(systemName: "arrow.clockwise")
                 }
             }
-            .sheet(isPresented: $showingStats) {
-                StatsView(viewModel: viewModel)
+
+            // Sign out on the right (if you're using it)
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Sign Out") {
+                    // call authViewModel.signOut() if you injected it
+                }
             }
         }
     }
@@ -56,8 +53,9 @@ struct GameView: View {
     // MARK: - Subviews
 
     private var header: some View {
-        Text("Guess the year!")
-            .font(.title2.weight(.semibold))
+        Text("Guess the year of this event")
+            .font(.title3.weight(.semibold))
+            .multilineTextAlignment(.center)
     }
 
     private var descriptionSection: some View {
@@ -65,15 +63,21 @@ struct GameView: View {
             switch viewModel.status {
             case .loading:
                 ProgressView("Loading today’s event…")
+
             case .error(let message):
                 Text(message)
                     .foregroundColor(.red)
+                
             default:
                 Text(viewModel.eventDescription)
                     .font(.body)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(nil)                         // no line limit
+                    .fixedSize(horizontal: false, vertical: true) // allow full height
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.bottom, 8)
     }
 
     private var boardSection: some View {
@@ -119,17 +123,44 @@ struct GameView: View {
             .foregroundColor(state == .empty ? .primary : .white)
     }
 
-    private var inputSection: some View {
-        HStack {
-            TextField("Enter year (4 digits)", text: $viewModel.currentGuess)
-                .keyboardType(.numberPad)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .disabled(!isPlaying)
+    // New: numeric keypad instead of text field
+    private var numberPadSection: some View {
+        VStack(spacing: 8) {
+            Text(viewModel.currentGuess)
+                .font(.title2.monospacedDigit())
+                .frame(height: 30)
 
-            Button("Guess") {
-                viewModel.submitGuess()
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 5), spacing: 8) {
+                ForEach(0..<10) { n in
+                    Button("\(n)") {
+                        viewModel.appendDigit(n)
+                    }
+                    .frame(height: 44)
+                    .frame(maxWidth: .infinity)
+                    .background(Color(.secondarySystemBackground))
+                    .cornerRadius(8)
+                }
             }
-            .disabled(!isPlaying || viewModel.currentGuess.trimmingCharacters(in: .whitespacesAndNewlines).count != 4)
+
+            HStack {
+                Button("Clear") {
+                    viewModel.clearGuess()
+                }
+                .frame(maxWidth: .infinity)
+                .padding(8)
+                .background(Color(.secondarySystemBackground))
+                .cornerRadius(8)
+
+                Button("Guess") {
+                    viewModel.submitGuess()
+                }
+                .frame(maxWidth: .infinity)
+                .padding(8)
+                .background(isPlaying && viewModel.currentGuess.count == 4 ? Color.accentColor : Color.gray)
+                .foregroundColor(.white)
+                .cornerRadius(8)
+                .disabled(!isPlaying || viewModel.currentGuess.count != 4)
+            }
         }
     }
 
@@ -167,24 +198,6 @@ struct GameView: View {
                 }
             }
         }
-    }
-
-    private var statsPreviewButton: some View {
-        VStack(spacing: 4) {
-            if let avg = viewModel.dailyAverageGuesses,
-               let games = viewModel.dailyGamesPlayed,
-               games > 0 {
-                Text("Today’s global avg guesses: \(avg, specifier: "%.2f")")
-                Text("Games played: \(games)")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            } else {
-                Text("No global stats yet for today.")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-        }
-        .frame(maxWidth: .infinity)
     }
 
     // Helpers

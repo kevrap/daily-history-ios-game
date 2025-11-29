@@ -89,19 +89,25 @@ enum GameStatus {
 @MainActor
 class GameViewModel: ObservableObject {
 
-    // Publicly observed properties
+    private let userId: String?
+
+    // existing published vars...
     @Published var eventDescription: String = ""
-    @Published var targetYearString: String = ""  // "1985"
+    @Published var targetYearString: String = ""
     @Published var guesses: [Guess] = []
     @Published var currentGuess: String = ""
     @Published var status: GameStatus = .loading
 
-    // Firestore stats
+    // Global stats
     @Published var dailyAverageGuesses: Double?
     @Published var dailyGamesPlayed: Int?
     @Published var dailyWinRate: Double?
 
-    // Share text
+    // User-specific stats (today)
+    @Published var userDailyAverageGuesses: Double?
+    @Published var userDailyGamesPlayed: Int?
+    @Published var userDailyWinRate: Double?
+
     @Published var hasCopiedShareText: Bool = false
 
     let maxGuesses = 6
@@ -109,12 +115,26 @@ class GameViewModel: ObservableObject {
 
     private let db = Firestore.firestore()
 
-    init() {
+    init(userId: String? = nil) {
+        self.userId = userId
         Task {
             await loadTodayEvent()
             listenToTodayStats()
+            listenToUserStats()
         }
     }
+    
+    // MARK: - Keypad helpers
+
+     func appendDigit(_ digit: Int) {
+         guard case .playing = status else { return }
+         guard currentGuess.count < 4 else { return }
+         currentGuess.append(String(digit))
+     }
+
+     func clearGuess() {
+         currentGuess = ""
+     }
 
     // MARK: - API: Load today's event from Wikipedia-derived API
 
@@ -264,6 +284,25 @@ class GameViewModel: ObservableObject {
                 print("Error writing stats: \(error)")
             }
         }
+        
+        // User-specific stats for today
+        if let userId = userId {
+            let userDocRef = db.collection("users")
+                .document(userId)
+                .collection("dailyStats")
+                .document(dateKey)
+
+            userDocRef.setData([
+                "date": dateKey,
+                "gamesPlayed": FieldValue.increment(Int64(1)),
+                "totalGuesses": FieldValue.increment(Int64(guessCount)),
+                "totalWins": FieldValue.increment(Int64(didWin ? 1 : 0))
+            ], merge: true) { error in
+                if let error = error {
+                    print("Error writing user stats: \(error)")
+                }
+            }
+        }
     }
 
     private func listenToTodayStats() {
@@ -289,6 +328,34 @@ class GameViewModel: ObservableObject {
             }
         }
     }
+    
+    private func listenToUserStats() {
+        guard let userId = userId else { return }
+        let dateKey = Self.todayKey()
+        let docRef = db.collection("users")
+            .document(userId)
+            .collection("dailyStats")
+            .document(dateKey)
+
+        docRef.addSnapshotListener { [weak self] snapshot, error in
+            guard let self = self else { return }
+            if let error = error {
+                print("Error listening to user stats:", error)
+                return
+            }
+            guard let data = snapshot?.data() else { return }
+
+            let games = Self.intFrom(data["gamesPlayed"])
+            let totalGuesses = Self.intFrom(data["totalGuesses"])
+            let totalWins = Self.intFrom(data["totalWins"])
+
+            DispatchQueue.main.async {
+                self.userDailyGamesPlayed = games
+                self.userDailyAverageGuesses = games > 0 ? Double(totalGuesses) / Double(games) : nil
+                self.userDailyWinRate = games > 0 ? Double(totalWins) / Double(games) : nil
+            }
+        }
+    }
 
     // Helpers
 
@@ -310,6 +377,8 @@ class GameViewModel: ObservableObject {
 // MARK: - UIKit pasteboard helper in an extension
 
 #if canImport(UIKit)
+import UIKit
+
 extension GameViewModel {
     func copyShareTextToPasteboard() {
         let text = shareText
@@ -320,8 +389,8 @@ extension GameViewModel {
 }
 #else
 extension GameViewModel {
-    func copyShareTextToPasteboard() {
-        // No-op on platforms without UIKit
-    }
+    func copyShareTextToPasteboard() { }
 }
 #endif
+
+
