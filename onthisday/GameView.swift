@@ -14,8 +14,8 @@ struct GameView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
 
     var body: some View {
-        VStack(spacing: 16) {
-            header
+        VStack(spacing: 8) {
+            //header
             descriptionSection
             boardSection
             numberPadSection
@@ -23,7 +23,9 @@ struct GameView: View {
             shareSection
             Spacer()
         }
-        .padding()
+        .padding(.horizontal)
+        .padding(.bottom)
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             // Center title as logo
             ToolbarItem(placement: .principal) {

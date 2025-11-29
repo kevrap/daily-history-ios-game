@@ -32,6 +32,13 @@ struct MainTabView: View {
             .tabItem {
                 Label("Stats", systemImage: "chart.bar")
             }
+
+            NavigationStack {
+                InstructionsView()
+            }
+            .tabItem {
+                Label("Instructions", systemImage: "questionmark.circle")
+            }
         }
     }
 }

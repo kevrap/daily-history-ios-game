@@ -18,8 +18,12 @@ struct AuthView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 24) {
-                Text("On this day")
-                    .font(.largeTitle.weight(.bold))
+                //Text("On this day")
+                //    .font(.largeTitle.weight(.bold))
+                Image("OnThisDayTitle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 200)
 
                 Picker("", selection: $isLoginMode) {
                     Text("Login").tag(true)

@@ -76,6 +76,10 @@ Original App Design Project - README Template
 * [X] Shows global average statistics for game
 * [X] Shows current user statistics for comparison
 * [X] Statistics include things like win rate, guess number, etc.
+- [X] Instructions Screen
+* Required User Feature: 
+* [X] Shows how to play
+
 
 ### 3. Navigation
 
@@ -86,13 +90,18 @@ Original App Design Project - README Template
     - [X] Shows the game screen
 - [X] Stats Screen
     - [X] Shows the stats screen
+- [X] Instructions Screen
+    - [X] Shows the Instructions screen
+
 
 **Flow Navigation** (Screen to Screen)
 
 - [X] Game Screen
-  * leads to Stats Screen
+  * leads to Stats Screen or Instructions
 - [X] Stats Screen
-  * leads back to Game Screen
+  * leads back to Game Screen or Instructions
+- [X] Instructions Screen
+  * leads back to Game Screen or Stats
 
 
 ## Wireframes
