@@ -11,6 +11,7 @@ import SwiftUI
 struct GameView: View {
 
     @ObservedObject var viewModel: GameViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
 
     var body: some View {
         VStack(spacing: 16) {
@@ -43,9 +44,11 @@ struct GameView: View {
 
             // Sign out on the right (if you're using it)
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Sign Out") {
-                    // call authViewModel.signOut() if you injected it
-                }
+                Button {
+                            authViewModel.signOut()
+                        } label: {
+                            Text("Sign Out")
+                        }
             }
         }
     }

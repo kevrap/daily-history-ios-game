@@ -43,49 +43,49 @@ Original App Design Project - README Template
 
 **Required Must-have Stories**
 
-* [ ] User can log in/sign up for account
+* [X] User can log in/sign up for account
 * [X] User can launch the app to the game screen that displays a historical blurb from an "on this day" API
 * [X] Users are instructed to enter the year they believe this day in history happened
 * [X] Users are given up to six chances to get the year right, with color-coded feedback based on their response to see how close they are
-* [ } ]When the user gets the right answer, they are congratulated and offered to play again
+* [X] When the user gets the right answer, they are congratulated and offered to play again
 
 **Optional Nice-to-have Stories**
 
-* [ ] User's scores are collected and stored in a database for that day so everyone can see how people are performing on average
-* [ ] Users can see their performance compared with global averages
+* [X] User's scores are collected and stored in a database for that day so everyone can see how people are performing on average
+* [X] Users can see their performance compared with global averages
 
 ### 2. Screen Archetypes
 
-- [ ] Launch Splash Screen
+- [X] Launch Splash Screen
 * Required User Feature: 
-* [ ] Have launch logo image and name and Z num
-- [ ] Login/Signup
+* [X] Have launch logo image and name and Z num
+- [X] Login/Signup
 * Required User Feature: 
-* [ ] Ability for user to login / signup for accounts
-- [ ] Game Screen
+* [X] Ability for user to login / signup for accounts
+- [X] Game Screen
 * Required User Feature: 
 * [X] Shows historal blurb for the day and gives instructions
 * [X] Has tile grid to show guesses
 * [X] Has easy way to enter four digit year
 * [X] Has color coded feedback for user guesses
 * [X] Has option to view stats screen at any time
-* [ ] User can refresh to replay a different game any time
-* [ ] On game complete user can tap a button to copy a block of text that shows their performance in the game
-- [ ] Stats Screen
+* [X] User can refresh to replay a different game any time
+* [X] On game complete user can tap a button to copy a block of text that shows their performance in the game
+- [X] Stats Screen
 * Required User Feature: 
-* [ ] Shows global average statistics for game
-* [ ] Shows current user statistics for comparison
-* [ ] Statistics include things like win rate, guess number, etc.
+* [X] Shows global average statistics for game
+* [X] Shows current user statistics for comparison
+* [X] Statistics include things like win rate, guess number, etc.
 
 ### 3. Navigation
 
 **Tab Navigation** (Tab to Screen)
 
 
-- [ ] Game Screen
-    - [ ] Shows the game screen
-- [ ] Stats Screen
-    - [ ] Shows the stats screen
+- [X] Game Screen
+    - [X] Shows the game screen
+- [X] Stats Screen
+    - [X] Shows the stats screen
 
 **Flow Navigation** (Screen to Screen)
 
@@ -107,12 +107,15 @@ Original App Design Project - README Template
 
 ## Demos
 
-#Progress Demo 1
+**Progress Demo 1**
+
 <img src="final_progress_demo_1.gif" alt="progress demo 1" width="50%" />
 
-#Progress Demo 2
+**Progress Demo 2**
 
-#Final Demo Video
+<img src="final_progress_demo_2.gif" alt="progress demo 2" width="50%" />
+
+**Final Demo Video**
 
 
 ## Schema 
