@@ -12,7 +12,8 @@ Original App Design Project - README Template
 1. [Overview](#Overview)
 2. [Product Spec](#Product-Spec)
 3. [Wireframes](#Wireframes)
-4. [Schema](#Schema)
+4. [Demos](#Demos)
+5. [Schema](#Schema)
 
 ## Overview
 
@@ -106,8 +107,13 @@ Original App Design Project - README Template
 
 ## Demos
 
-Progress Demo 1
+#Progress Demo 1
 <img src="final_progress_demo_1.gif" alt="progress demo 1" width="50%" />
+
+#Progress Demo 2
+
+#Final Demo Video
+
 
 ## Schema 
 
