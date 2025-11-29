@@ -89,9 +89,9 @@ Original App Design Project - README Template
 
 **Flow Navigation** (Screen to Screen)
 
-- [ ] Game Screen
+- [X] Game Screen
   * leads to Stats Screen
-- [ ] Stats Screen
+- [X] Stats Screen
   * leads back to Game Screen
 
 
@@ -117,7 +117,7 @@ Original App Design Project - README Template
 
 **Final Demo Video**
 
-![video](https://youtu.be/AARlBFYwZcs)
+[Click here for YouTube Demonstration Video](https://youtu.be/AARlBFYwZcs)
 
 ## Schema 
 
